@@ -39,8 +39,8 @@ class MoveLegoArm(mixins.ListModelMixin,
                   generics.GenericAPIView):
     queryset = Product.objects.all()
 
-    def post(self, request, *args, **kwargs):
-        data = JSONParser().parse(request)
+    def get(self, request, *args, **kwargs):
+        # data = JSONParser().parse(request)
         print("EndPoint Ready")
         requests.get("http://192.168.1.113:8080/initialize/")
         requests.get("http://192.168.1.113:8080/move_start/")
