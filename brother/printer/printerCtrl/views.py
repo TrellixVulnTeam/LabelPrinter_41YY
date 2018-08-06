@@ -26,10 +26,11 @@ class PrintProduct(mixins.ListModelMixin,
         print("Retrieving Image from " + data['ImageURL'])
         original_image_path = "../printer/QRFiles/" + data['ProductId'] + data['dataFormat']
 
+        urllib.request.urlretrieve(data['ImageURL'], original_image_path)
+
         # Using Brother libraries to print the image
         print("Creating bin file for image " + "../printer/QRFiles/" + data['ProductId'] + data['dataFormat'])
         excute_order="brother_ql_create --model QL-710W --label-size 29 " + original_image_path + " > " + data['ProductId'] + ".bin"
-        # excute_order="brother_ql_create --model QL-710W " + original_image_path + " > " + data['ProductId'] + ".bin"
         os.system(excute_order)
         print("Preparing to print file" + "../printer/QRFiles/" + data['ProductId'] + ".bin")
         excute_order="brother_ql_print --backend network " + data['ProductId'] + ".bin" + " tcp://192.168.1.152:9100"
