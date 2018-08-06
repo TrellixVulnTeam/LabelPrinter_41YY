@@ -25,40 +25,7 @@ class PrintProduct(mixins.ListModelMixin,
         print(data)
         print("Retrieving Image from " + data['ImageURL'])
         original_image_path = "../printer/QRFiles/" + data['ProductId'] + data['dataFormat']
-        resized_image_path = "../printer/QRFiles/resized_" + data['ProductId'] + data['dataFormat']
-        rotated_image_path = "../printer/QRFiles/rotated_" + data['ProductId'] + data['dataFormat']
-        urllib.request.urlretrieve(data['ImageURL'], original_image_path)
-        # Resezin Image to fit it into small label paper
-        # original_image=Image.open(original_image_path)
-        # original_image.rotate(90, expand=True).save(rotated_image_path)
-
-        # rotated_image=Image.open(rotated_image_path)
-        # w, h = rotated_image.size
-        # print('The rotated image size is {wide} wide x {height} high'.format(wide=w, height=h))
-        # if data['Width']:
-        #     width = data['Width']
-        # if data['Height']:
-        #     height = data['Height']
-        # if width and height:
-        #     max_size = (width, height)
-        # elif width:
-        #     max_size = (width, h)
-        # elif height:
-        #     max_size = (w, height)
-        # else:
-            # No width or height specified
-            # raise RuntimeError('Width or height required!')
-
-        # print ('MaxSize = ' + str(max_size))
-
-        # rotated_image.thumbnail(max_size, Image.ANTIALIAS)
-        # rotated_image.save(resized_image_path)
-
-        # scaled_image = Image.open(resized_image_path)
-        # width, height = scaled_image.size
-        # print('The scaled image size is {wide} wide x {height} '
-        #     'high'.format(wide=width, height=height))
-
+        
         # Using Brother libraries to print the image
         print("Creating bin file for image " + "../printer/QRFiles/" + data['ProductId'] + data['dataFormat'])
         excute_order="brother_ql_create --model QL-710W --label-size 29 " + original_image_path + " > " + data['ProductId'] + ".bin"
